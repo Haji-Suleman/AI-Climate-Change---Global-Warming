@@ -33,7 +33,13 @@ class Climate_Change(nn.Module):
     def __init__(self):
         super().__init__()
         self.model = nn.Sequential(
-            nn.Linear(27, 64), nn.ReLU(), nn.Linear(64, 32), nn.ReLU(), nn.Linear(32, 1)
+            nn.Linear(27, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(64, 32),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(32, 1),
         )
 
     def forward(self, X):
@@ -54,7 +60,7 @@ for epoch in range(epochs):
     model.train()
     y_pred_train = model(X_train)
     loss = loss_fn(y_pred_train, y_train)
-    optimizer.zero_grad()   
+    optimizer.zero_grad()
     loss.backward()
     optimizer.step()
 
@@ -78,6 +84,7 @@ plt.plot(test_losses, label="Test Loss")
 plt.xlabel("Epochs")
 plt.ylabel("MSE Loss")
 plt.title("Train/Test Loss")
+plt.ylim(0, 3)
 plt.legend()
 plt.show()
 
