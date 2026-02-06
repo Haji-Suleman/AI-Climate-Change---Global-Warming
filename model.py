@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 
 df = clean_Climate_Change_Dataset()
 RANDOMSEED = 42
-X = df.drop(columns=["id", "climate_risk_index"]).values
+X = df.drop(columns=["climate_risk_index"]).values
 y = df["climate_risk_index"].values
 scaler = StandardScaler()
 X = scaler.fit_transform(X)
@@ -20,9 +20,9 @@ y = torch.tensor(y, dtype=torch.float32).unsqueeze(1)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
-print(len(X))
 
 
 class Climate_Change(nn.Module):
     def __init__(self):
         super().__init__()
+        self.model = nn.Sequential()
