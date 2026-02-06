@@ -25,4 +25,19 @@ X_train, X_test, y_train, y_test = train_test_split(
 class Climate_Change(nn.Module):
     def __init__(self):
         super().__init__()
-        self.model = nn.Sequential()
+        self.model = nn.Sequential(
+            nn.Linear(in_features=27, out_features=50),
+            nn.ReLU(),
+            nn.Linear(in_features=50, out_features=25),
+            nn.ReLU(),
+            nn.Linear(in_features=25, out_features=1),
+        )
+
+    def forward(self, X):
+        return self.model(X)
+
+
+torch.manual_seed(RANDOMSEED)
+model_9 = Climate_Change()
+
+print(model_9.state_dict())
